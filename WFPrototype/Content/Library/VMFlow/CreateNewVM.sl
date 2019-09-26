@@ -1,54 +1,53 @@
 namespace: VMFlow
 flow:
   name: CreateNewVM
-  inputs:
-    - TIME:
-        default: '1'
-        required: false
   workflow:
-    - verify_url_is_accessible:
-        do:
-          io.cloudslang.base.http.verify_url_is_accessible:
-            - url: 10.41.37.217
-        publish:
-          - output_message
-        navigate:
-          - SUCCESS: is_true
-          - FAILURE: on_failure
     - is_true:
         do:
           io.cloudslang.base.utils.is_true:
-            - bool_value: ture
+            - bool_value: '${output_message}'
         navigate:
           - 'TRUE': SUCCESS
           - 'FALSE': FAILURE
-  outputs:
-    - flow_output_0: '1'
+    - get_time:
+        do:
+          io.cloudslang.base.datetime.get_time:
+            - locale_country: Thailand
+            - date_format: '${locale_country}'
+        publish:
+          - Time: '${output}'
+        navigate:
+          - SUCCESS: is_true
+          - FAILURE: FAILURE
   results:
     - FAILURE
     - SUCCESS
 extensions:
   graph:
     steps:
-      verify_url_is_accessible:
-        x: 45
-        'y': 142
-      is_true:
-        x: 292
-        'y': 130
+      get_time:
+        x: 50
+        'y': 30
         navigate:
-          23601dea-9da5-5c11-b5db-2c0122585312:
-            targetId: 1bbbc7cf-1a58-5ec6-9dd8-3c0e3794e8ac
+          95231e27-9e3a-cabf-4a9d-c8310e2c8e18:
+            targetId: 797760cc-794a-a5b5-8b7f-bf7d53e0ee9b
+            port: FAILURE
+      is_true:
+        x: 100
+        'y': 250
+        navigate:
+          c8d48363-feef-a4b8-6255-5ded9200c1fb:
+            targetId: 6024eba2-9323-b05c-7b8e-12e85de18da9
             port: 'TRUE'
-          387d5dca-cb20-c3c0-1d8d-04947537a4da:
-            targetId: ab161732-a7c0-48f3-24ce-855fae4ba42f
+          d5bc9263-a568-c58d-da33-51d19bbad3e4:
+            targetId: 797760cc-794a-a5b5-8b7f-bf7d53e0ee9b
             port: 'FALSE'
     results:
       SUCCESS:
-        1bbbc7cf-1a58-5ec6-9dd8-3c0e3794e8ac:
-          x: 445
-          'y': 206
+        6024eba2-9323-b05c-7b8e-12e85de18da9:
+          x: 400
+          'y': 125
       FAILURE:
-        ab161732-a7c0-48f3-24ce-855fae4ba42f:
-          x: 442
-          'y': -14
+        797760cc-794a-a5b5-8b7f-bf7d53e0ee9b:
+          x: 400
+          'y': 375
