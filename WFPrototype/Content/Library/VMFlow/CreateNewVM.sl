@@ -18,20 +18,13 @@ flow:
           - Time: '${output}'
         navigate:
           - SUCCESS: is_true
-          - FAILURE: FAILURE
+          - FAILURE: on_failure
   results:
     - FAILURE
     - SUCCESS
 extensions:
   graph:
     steps:
-      get_time:
-        x: 50
-        'y': 30
-        navigate:
-          95231e27-9e3a-cabf-4a9d-c8310e2c8e18:
-            targetId: 797760cc-794a-a5b5-8b7f-bf7d53e0ee9b
-            port: FAILURE
       is_true:
         x: 100
         'y': 250
@@ -42,12 +35,15 @@ extensions:
           d5bc9263-a568-c58d-da33-51d19bbad3e4:
             targetId: 797760cc-794a-a5b5-8b7f-bf7d53e0ee9b
             port: 'FALSE'
+      get_time:
+        x: 50
+        'y': 30
     results:
-      SUCCESS:
-        6024eba2-9323-b05c-7b8e-12e85de18da9:
-          x: 400
-          'y': 125
       FAILURE:
         797760cc-794a-a5b5-8b7f-bf7d53e0ee9b:
           x: 400
           'y': 375
+      SUCCESS:
+        6024eba2-9323-b05c-7b8e-12e85de18da9:
+          x: 400
+          'y': 125
